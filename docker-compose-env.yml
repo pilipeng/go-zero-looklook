@@ -166,6 +166,21 @@ services:
     depends_on:
       - zookeeper
 
+  #kafka ui
+  kafdrop:
+    image: obsidiandynamics/kafdrop
+    restart: always
+    ports:
+      - "9000:9000"
+    environment:
+      KAFKA_BROKERCONNECT: "kafka:9092"
+    depends_on:
+      - zookeeper
+      - kafka
+    container_name: kafdrop
+    networks:
+      - looklook_net
+
   #asynqmon asynq延迟队列、定时队列的webui - Asynqmon asynq delay queue, timing queue's webUI
   asynqmon:
     image: hibiken/asynqmon:latest
